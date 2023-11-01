@@ -1,0 +1,67 @@
+{% if session['step'] >= 1 %}
+
+<hr>
+
+<div class="flex-margin-bottom margin-top relative">
+    <div class="step">
+        Step: 1
+    </div>
+
+    <div class="flex justify-evenly">
+        <div>
+            <b>Public key (n):</b>
+            <span class="overflow-crypto">
+                {{ session['public'].n }}
+            </span>
+        </div>
+        <div>
+            <b>Private key ({{ show_title_private_key() }}):</b>
+            <span class="overflow-crypto">
+                {{ show_private_key() }}
+            </span>
+        </div>
+    </div>
+
+    <div class="flex justify-evenly">
+        <div>
+            <b>Vector cleartext:</b>
+            <div class="flex flex-margin-right">
+                {% for number in session['hot_encoding'] %}
+                    <div class="square">
+                        {{ number }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div>
+            <b>Vector encrypted</b>
+            <div class="flex flex-margin-right">
+                {% for encrypted in session['crypto_hot_encoding'] %}
+                    <div class="rectangle">
+                        {{ show_encrypted_value(encrypted) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-center flex-margin-right">
+        <div class="flex-column">
+            <b>Key generation time</b>
+            <span>{{ session['time_keygen'] }}s</span>
+        </div>
+        <div class="flex-column">
+            <b>Encrypt vector time</b>
+            <span>{{ session['time_encrypt_vector'] }}s</span>
+        </div>
+        <div class="flex-column">
+            <b>Subtotal</b>
+            <span>{{ round(session['time_keygen'] + session['time_encrypt_vector'], 4) }}s</span>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+{% endif %}

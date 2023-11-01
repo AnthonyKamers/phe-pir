@@ -1,0 +1,32 @@
+{% if session['step'] >= 2 %}
+
+<form action="/decrypt" method="POST" class="relative min-height">
+    <div class="step">
+        Step: 4-5
+    </div>
+
+    <div class="center">
+        <input type="submit" name="decrypt" value="Decrypt">
+
+        {% if session['step'] >= 3 %}
+            <div class="flex justify-center flex-margin-right margin-top">
+                <div>
+                    <b>Result retrieved (decrypted)</b>
+                    <p>results[{{ session['index_retrieve'] }}] = {{ session['decrypted_sum'] }}</p>
+                </div>
+                <div>
+                    <b>Total elapsed time</b>
+                    <p>
+                        {{ round(session['time_keygen'] + session['time_encrypt_vector'] + session['time_sum_encrypted'],4) }}s
+                    </p>
+                </div>
+                <div>
+                    <b>Scheme used</b>
+                    <p>{{ session['scheme'] }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</form>
+
+{% endif %}

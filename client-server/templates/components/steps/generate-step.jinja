@@ -1,0 +1,25 @@
+<form action="/generate" method="POST">
+    <div class="flex justify-evenly">
+        <div>
+            <label for="scheme">Scheme</label>
+            <select name="scheme" id="scheme">
+                <option value="paillier">Paillier</option>
+                <option value="damgard-jurik">Damgard-Jurik</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="index">Index to retrieve</label>
+            <input
+                    type="number"
+                    name="index"
+                    id="index"
+                    min="0"
+                    max="{{ qtd - 1 }}"
+                    value="{{ session['index_retrieve'] if session['index_retrieve'] else '' }}"
+            >
+        </div>
+
+        <input type="submit" name="generate" value="Generate">
+    </div>
+</form>

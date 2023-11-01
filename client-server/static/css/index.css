@@ -1,0 +1,90 @@
+a {
+    color: black;
+}
+
+.margin-top {
+    margin-top: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+.margin-right {
+    margin-right: 5px;
+}
+
+.relative {
+    position: relative;
+}
+
+.min-height {
+    min-height: 40px;
+}
+
+.right {
+    text-align: right;
+    margin-right: 2px;
+}
+
+.step {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    padding: 5px;
+    border: 1px solid blue;
+}
+
+.center {
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.justify-evenly {
+    justify-content: space-evenly;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.input {
+    width: 100%;
+}
+
+.flex-margin-right > * {
+    margin-right: 10px;
+}
+
+.flex-margin-bottom > * {
+    margin-bottom: 10px;
+}
+
+.overflow-crypto {
+    width: 200px;
+    display: block;
+    overflow-x: auto;
+}
+
+.square {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border: 1px solid blue;
+}
+
+.rectangle {
+    width: 100px;
+    height: 20px;
+    text-align: center;
+    border: 1px solid blue;
+    overflow-x: clip;
+}

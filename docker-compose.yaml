@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  client-server:
+    container_name: client-server
+    build:
+      context: client-server
+      target: builder
+    stop_signal: SIGINT
+    volumes:
+      - db-sqlite:/app/db
+      - session-flask:/app/flask-session
+    ports:
+      - "5000:5000"
+
+
+volumes:
+  db-sqlite:
+    name: db-sqlite
+  session-flask:
+    name: session-flask

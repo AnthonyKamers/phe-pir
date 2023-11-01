@@ -1,0 +1,77 @@
+<div>
+    <details open>
+        <summary>What does this application do?</summary>
+        <p>
+            We show how we can use the PIR (Private Information Retrieval) protocol
+            can be used to perform a search over a database without revealing the
+            user's query. With that, the user's query remains secure, and the backend
+            or the database owner cannot know what the user is searching for.
+        </p>
+
+        <p>
+            This is possible due to homomorphic encryption, where it is possible
+            to evaluate a function over encrypted data, without decrypting it. We focus
+            on the usage of PHE (Partially Homomorphic Encryption) schemes, which are
+            the most efficient ones, and could really be applied into real world
+            applications nowadays. With PHE, we can perform only additions or
+            multiplications of ciphertexts; whereas it is also possible to perform
+            multiplications with scalars/cleartexts.
+        </p>
+
+        <p>
+            In order to compare the performance and show the efficiency of PHE schemes,
+            the user can choose between two PHE schemes: Paillier and Damgard-Jurik.
+        </p>
+    </details>
+    <details>
+        <summary>How to combine PIR with PHE?</summary>
+
+        <p>
+            To construct the PIR protocol with a PHE scheme, we only rely on
+            addition of ciphertexts and multiplication with scalars. We also don't need
+            to encrypt the whole database, but it is necessary to run through all elements
+            on it. The protocol has the following steps:
+        </p>
+        <ol class="steps">
+            <li>
+                The user encrypts the index of the desired result, using the chosen PHE scheme.
+                This procedure is done by one-hot encoding encryption, where the index is
+                represented as a vector of encrypted zeros, except for the index position, which
+                is the encryption of one.
+            </li>
+            <li>
+                The user sends the encrypted vector to the server.
+            </li>
+            <li>
+                The server runs through all elements of the database, and for each element,
+                it multiplies the encrypted vector element with the correspondent non-ciphered
+                element in the database. Here we use the multiplication with a ciphertext and
+                a cleartext. Then, we need to sum all of these multiplications, homomorphically.
+            </li>
+            <li>
+                The server sends back to the client the sum of all multiplications.
+            </li>
+            <li>
+                The client decrypts the result, and gets the desired element.
+            </li>
+        </ol>
+    </details>
+    <details>
+        <summary>How is this application made?</summary>
+        <p>
+            This application is an open-source project, submited as BCS degree (Bachelor Computer
+            Science) final project at UFSC - Universidade Federal de Santa Catarina, Brazil.
+            The source code is available at my personal Github account, at the following
+            link:
+            <a href="https://github.com/AnthonyKamers/phe-pir" target="_blank">
+                https://github.com/AnthonyKamers/phe-pir
+            </a>. It has a MIT license, so you can use it as you wish.
+        </p>
+        <p>
+            The core is done in Python 3.10, using the Flask framework to serve the application.
+            The database is a very simple SQLite database, where it is parsed by Python and
+            showed using Python. The schemes we use are the Paillier and the Damgard-Jurik schemes,
+            so the packages we also use is `phe` for the former, and `damgard-jurik` for the last.
+        </p>
+    </details>
+</div>

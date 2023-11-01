@@ -1,0 +1,31 @@
+{% extends "layout/base.jinja" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename="css/index.css") }}"/>
+    <script src="{{ url_for('static', filename="js/logic.js") }}"></script>
+{% endblock %}
+{% block content %}
+    {{ super() }}
+
+    <div class="margin-bottom">
+        Results in Database: {{ qtd }}
+
+        {% include 'components/steps/add.jinja' %}
+
+        <form action="/reset" method="POST" class="right">
+            <input type="submit" name="reset" value="Reset data">
+        </form>
+        <fieldset>
+            <legend>Private Information Retrieval</legend>
+
+            {% include 'components/steps/generate-step.jinja' %}
+
+            {% include 'components/steps/step1.jinja' %}
+            {% include 'components/steps/step2-3.jinja' %}
+            {% include 'components/steps/step4-5.jinja' %}
+        </fieldset>
+    </div>
+
+    {% include 'components/faq.jinja' %}
+{% endblock %}
