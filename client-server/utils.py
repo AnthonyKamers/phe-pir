@@ -28,26 +28,37 @@ def time_function(argument):
     return decorator
 
 
+map_private_key_title = {
+    'paillier': 'p,q',
+    'damgard-jurik': 'Four delta values',
+    'okamoto-uchiyama': 'p,q'
+}
+
+
 def show_title_private_key():
-    scheme = session['scheme']
-    if scheme == 'paillier':
-        return 'p,q'
-    elif scheme == 'damgard-jurik':
-        return 'Four delta values'
+    return map_private_key_title[session['scheme']]
 
 
 def show_private_key():
     scheme = session['scheme']
     private = session['private']
-    if scheme == 'paillier':
-        return f'{private.p}|{private.q}'
-    elif scheme == 'damgard-jurik':
-        return f'{private.inv_four_delta_squared}'
+    match scheme:
+        case 'paillier' | 'okamoto-uchiyama':
+            return f'{private.p}|{private.q}'
+        case 'damgard-jurik':
+            return f'{private.inv_four_delta_squared}'
+        case _:
+            return 'Undefined'
 
 
 def show_encrypted_value(encrypted):
     scheme = session['scheme']
-    if scheme == 'paillier':
-        return encrypted._EncryptedNumber__ciphertext
-    elif scheme == 'damgard-jurik':
-        return encrypted.value
+    match scheme:
+        case 'paillier':
+            return encrypted._EncryptedNumber__ciphertext
+        case 'damgard-jurik':
+            return encrypted.value
+        case 'okamoto-uchiyama':
+            return encrypted.ciphertext
+        case _:
+            return 'Undefined'

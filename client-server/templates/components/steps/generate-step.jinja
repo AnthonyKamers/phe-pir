@@ -3,8 +3,14 @@
         <div>
             <label for="scheme">Scheme</label>
             <select name="scheme" id="scheme">
-                <option value="paillier">Paillier</option>
-                <option value="damgard-jurik">Damgard-Jurik</option>
+                {% for scheme in schemes %}
+                    <option
+                            value="{{ scheme }}"
+                            {{ 'selected' if session['scheme'] and session['scheme'] == scheme else '' }}
+                    >
+                        {{ scheme }}
+                    </option>
+                {% endfor %}
             </select>
         </div>
 
