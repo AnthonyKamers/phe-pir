@@ -50,6 +50,8 @@ class PublicKeyOkamotoUchiyama:
             raise Exception(f"The message must be between 0 and 2**{self.k - 1}")
 
         r = randint(1, self.n)
+
+        # more efficient
         ciphertext = pow(self.g, m + (self.n * r), self.n)
         return EncryptedOkamotoUchiyama(ciphertext, self)
 
@@ -60,13 +62,13 @@ class PrivateKeyOkamotoUchiyama(AbstractPublicKey):
         self.p = p
         self.p_square = p * p
         self.q = q
+        self.g_p = modular_inverse(self.discrete_logarithm(self.public_key.g), self.p)
 
     def decrypt(self, ciphertext: EncryptedOkamotoUchiyama):
         AbstractPublicKey.check_public_key(self, ciphertext)
 
-        g_p = modular_inverse(self.discrete_logarithm(self.public_key.g), self.p)
         c_p = self.discrete_logarithm(ciphertext.ciphertext)
-        return (c_p * g_p) % self.p
+        return (c_p * self.g_p) % self.p
 
     def discrete_logarithm(self, c: int):
         z = pow(c, self.p - 1, self.p_square)

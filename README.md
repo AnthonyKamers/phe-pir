@@ -47,14 +47,19 @@ This application is an open-source project,
 submited as BCS degree (Bachelor Computer
 Science) final project at UFSC -
 Universidade Federal de Santa Catarina, Brazil by
-Anthony Bernardo Kamers. There is a MIT license,
+Anthony Bernardo Kamers, in 2023. There is a MIT license,
 so you can use as you wish.
 
 The code is a very simple Flask application to serve
 the server and the client. The database is a
 SQLite database. The user interface is made with
-Jimja2 templates. Also, the user can choose between
-the PHE schemes: Paillier and Damgard-Jurik. With that
-alternatives, we can check the difference of speed
-towards each of them, and check the amazing result
-without the backend knowing what the user is querying.
+Jinja2 templates. Also, the user can choose between
+the PHE schemes: Paillier, Damgard-Jurik
+and Okamoto-Uchiyama. With that alternatives,
+we can check the difference of speed towards each
+of them, and check the amazing result without the
+backend knowing what the user is querying.
+
+The **Okamoto-Uchiyama** scheme was implemented as part
+of this job as well. The references used are in each
+Python file, demonstrating what was used as basis.

@@ -31,7 +31,7 @@ def time_function(argument):
 map_private_key_title = {
     'paillier': 'p,q',
     'damgard-jurik': 'Four delta values',
-    'okamoto-uchiyama': 'p,q'
+    'okamoto-uchiyama-self': 'p,q'
 }
 
 
@@ -43,7 +43,7 @@ def show_private_key():
     scheme = session['scheme']
     private = session['private']
     match scheme:
-        case 'paillier' | 'okamoto-uchiyama':
+        case 'paillier' | 'okamoto-uchiyama-self':
             return f'{private.p}|{private.q}'
         case 'damgard-jurik':
             return f'{private.inv_four_delta_squared}'
@@ -58,7 +58,7 @@ def show_encrypted_value(encrypted):
             return encrypted._EncryptedNumber__ciphertext
         case 'damgard-jurik':
             return encrypted.value
-        case 'okamoto-uchiyama':
+        case 'okamoto-uchiyama-self':
             return encrypted.ciphertext
         case _:
             return 'Undefined'

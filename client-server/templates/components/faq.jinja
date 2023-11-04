@@ -2,7 +2,7 @@
     <details open>
         <summary>What does this application do?</summary>
         <p>
-            We show how we can use the PIR (Private Information Retrieval) protocol
+            We show how the PIR (Private Information Retrieval) protocol
             can be used to perform a search over a database without revealing the
             user's query. With that, the user's query remains secure, and the backend
             or the database owner cannot know what the user is searching for.
@@ -13,14 +13,18 @@
             to evaluate a function over encrypted data, without decrypting it. We focus
             on the usage of PHE (Partially Homomorphic Encryption) schemes, which are
             the most efficient ones, and could really be applied into real world
-            applications nowadays. With PHE, we can perform only additions or
+            applications nowadays. With PHE, we can perform only additions or only
             multiplications of ciphertexts; whereas it is also possible to perform
-            multiplications with scalars/cleartexts.
+            multiplications with scalars/cleartexts. Here, we use only additive schemes,
+            which also allows multiplication of cleartexts.
         </p>
 
         <p>
             In order to compare the performance and show the efficiency of PHE schemes,
-            the user can choose between two PHE schemes: Paillier and Damgard-Jurik.
+            the user can choose between three different PHE schemes: Okamoto-Uchiyama,
+            Paillier, Damgard-Jurik. We consider the following bit sizes for each scheme:
+            Okamoto-Uchiyama and Paillier: 512 bits; Damgard-Jurik: 64 bits with 3 thresholds.
+            <b>The Okamoto-Uchiyama scheme was implemented as part of this work.</b>
         </p>
     </details>
     <details>
@@ -30,7 +34,8 @@
             To construct the PIR protocol with a PHE scheme, we only rely on
             addition of ciphertexts and multiplication with scalars. We also don't need
             to encrypt the whole database, but it is necessary to run through all elements
-            on it. The protocol has the following steps:
+            on it, as such the protocol has a complexity of <code>O(n)</code>. The protocol
+            has the following steps:
         </p>
         <ol class="steps">
             <li>
@@ -45,7 +50,7 @@
             <li>
                 The server runs through all elements of the database, and for each element,
                 it multiplies the encrypted vector element with the correspondent non-ciphered
-                element in the database. Here we use the multiplication with a ciphertext and
+                element in the database. Here we use the multiplication between a ciphertext and
                 a cleartext. Then, we need to sum all of these multiplications, homomorphically.
             </li>
             <li>
@@ -69,9 +74,10 @@
         </p>
         <p>
             The core is done in Python 3.10, using the Flask framework to serve the application.
-            The database is a very simple SQLite database, where it is parsed by Python and
-            showed using Python. The schemes we use are the Paillier and the Damgard-Jurik schemes,
-            so the packages we also use is `phe` for the former, and `damgard-jurik` for the last.
+            The database is a very simple SQLite database (managed using package `peewee`), where
+            it is parsed by Python and showed using Jinja (Python + HTML). The schemes we use are Paillier
+            (package `phe`), and the Damgard-Jurik (package `damgard-jurik`), while the Okamoto-Uchiyama
+            one was implemented by myself, in order to understand the whole construction.
         </p>
     </details>
 </div>

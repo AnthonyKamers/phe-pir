@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
 
-from crypto_client import generate_keypair, plain_hot, encrypt_hot, map_scheme_algorithm
+from crypto_client import generate_keypair, plain_hot, encrypt_hot, schemes
 from crypto_server import sum_encrypted
 from db import create_table, get_qtd, get_all, new_result
 from utils import show_title_private_key, show_private_key, show_encrypted_value, private_key_sessions
@@ -34,7 +34,7 @@ def page_not_found(error):
 def index():
     if session.get('step') is None:
         session['step'] = 0
-    return render_template('pages/index.jinja', qtd=get_qtd(), schemes=list(map_scheme_algorithm.keys()))
+    return render_template('pages/index.jinja', qtd=get_qtd(), schemes=schemes)
 
 
 @app.route('/add', methods=['POST'])

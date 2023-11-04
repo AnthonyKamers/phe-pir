@@ -4,17 +4,21 @@ from phe.paillier import generate_paillier_keypair as paillier_keygen
 from okamoto_uchiyama.okamoto_uchiyama import generate_okamoto_uchiyama as okamoto_uchiyama_keygen
 from utils import time_function
 
-map_scheme_algorithm = {
-    'okamoto-uchiyama': okamoto_uchiyama_keygen,
-    'damgard-jurik': damgard_jurik_keygen,
-    'paillier': paillier_keygen,
-}
+DAMGARD_JURIK_BIT_SIZE = 64
+DEFAULT_BIT_SIZE = 512
 
+schemes = ['okamoto-uchiyama-self', 'damgard-jurik', 'paillier',]
 
 @time_function('keygen')
 def generate_keypair(scheme: str):
-    if scheme in map_scheme_algorithm:
-        return map_scheme_algorithm[scheme]()
+    if scheme in schemes:
+        match scheme:
+            case 'paillier':
+                return paillier_keygen(n_length=DEFAULT_BIT_SIZE)
+            case 'okamoto-uchiyama-self':
+                return okamoto_uchiyama_keygen(DEFAULT_BIT_SIZE)
+            case 'damgard-jurik':
+                return damgard_jurik_keygen(DAMGARD_JURIK_BIT_SIZE)
     else:
         raise ValueError('Invalid scheme')
 
